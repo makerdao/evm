@@ -1,3 +1,3 @@
 #! /bin/bash
 
-sed '/^\/\//d' < /dev/stdin | tr '\n' ' ' | sed 's/ //g'
+sed 's/\/\/.*//g' < $1 | tr '\n' ' ' | sed 's/ //g'
