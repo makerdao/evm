@@ -2,21 +2,21 @@
 
 
 // constructor
-60 cf // -> contract length
+60 -> contract_length
 80
-60 0b // -> beginning of contract code
+60 0b
 60 00
 39
 60 00
 f3
 
 
-// 0b: beginning of contract code
-60 9c // -> function selector
+# start
+60 -> function_selector
 56
 
 
-5b // 03: balanceOf(address)
+5b # balanceOf(address)
 60 04
 35
 60 00
@@ -32,7 +32,7 @@ f3
 f3
 
 
-5b // 18: mint(address,uint256)
+5b # mint(address,uint256)
 60 01
 54
 60 24
@@ -40,7 +40,7 @@ f3
 01
 60 01
 55
-5b // 23: increase address' balance
+5b # increase_address_balance
 60 04
 35
 60 00
@@ -61,7 +61,7 @@ f3
 00
 
 
-5b // 3d: transfer(address,uint256)
+5b # transfer(address,uint256)
 33
 60 00
 52
@@ -76,7 +76,7 @@ f3
 80
 91
 10
-60 8b // -> revert
+60 -> revert
 57
 90
 03
@@ -94,17 +94,17 @@ f3
 60 20
 60 00
 a3
-60 23 // -> increase address' balance
+60 -> increase_address_balance
 56
 
 
-5b // 8b: revert
+5b # revert
 60 00
 80
 fd
 
 
-5b // 90: totalSupply()
+5b # totalSupply()
 60 01
 54
 60 00
@@ -114,7 +114,7 @@ fd
 f3
 
 
-5b // 9c: function selector
+5b # function_selector
 60 00
 35
 60 e0
@@ -122,22 +122,24 @@ f3
 80
 63 70 a0 82 31
 14
-60 03 // -> balanceOf(address)
+60 -> balanceOf(address)
 57
 80
 63 40 c1 0f 19
 14
-60 18 // -> mint(address,uint256)
+60 -> mint(address,uint256)
 57
 80
 63 a9 05 9c bb
 14
-60 3d // -> transfer(address,uint256)
+60 -> transfer(address,uint256)
 57
 80
 63 18 16 0d dd
 14
-60 90 // -> totalSupply()
+60 -> totalSupply()
 57
-60 8b // -> revert
-56 // cf: contract length
+60 -> revert
+56
+
+00 # contract_length
