@@ -2,14 +2,19 @@
 
 contract=$(cat /dev/stdin)
 
+printf "\n\nstarting tests\n\n"
+
 seth send $contract
 printf "^^^^^^^^^^ should fail ^^^^^^^^^^\n\n"
 
 seth call $contract 'balanceOf(address)' $ETH_FROM
-printf "^^^^^^^^^^ should be 0 ^^^^^^^^^^\n\n"
+printf "^^^^^^^^^^ should be 0x0 ^^^^^^^^^^\n\n"
 
 seth call $contract 'balanceOf(address)' 0x123
-printf "^^^^^^^^^^ should be 0 ^^^^^^^^^^\n\n"
+printf "^^^^^^^^^^ should be 0x0 ^^^^^^^^^^\n\n"
+
+seth call $contract 'totalSupply()'
+printf "^^^^^^^^^^ should be 0x0 ^^^^^^^^^^\n\n"
 
 seth send $contract 'transfer(address,uint256)' 0x123 0xa
 printf "^^^^^^^^^^ should fail ^^^^^^^^^^\n\n"
@@ -20,6 +25,9 @@ printf "^^^^^^^^^^ should succeed ^^^^^^^^^^\n\n"
 seth call $contract 'balanceOf(address)' $ETH_FROM
 printf "^^^^^^^^^^ should be 0xdada ^^^^^^^^^^\n\n"
 
+seth call $contract 'totalSupply()'
+printf "^^^^^^^^^^ should be 0xdada ^^^^^^^^^^\n\n"
+
 seth send $contract 'transfer(address,uint256)' 0x123 0xa
 printf "^^^^^^^^^^ should succeed ^^^^^^^^^^\n\n"
 
@@ -28,3 +36,6 @@ printf "^^^^^^^^^^ should be 0xa ^^^^^^^^^^\n\n"
 
 seth call $contract 'balanceOf(address)' $ETH_FROM
 printf "^^^^^^^^^^ should be 0xdad0 ^^^^^^^^^^\n\n"
+
+seth call $contract 'totalSupply()'
+printf "^^^^^^^^^^ should be 0xdada ^^^^^^^^^^\n\n"
