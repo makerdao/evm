@@ -2,17 +2,17 @@
 
 
 // constructor
-60 98 // -> contract length
+60 cf // -> contract length
 80
-60 0b
+60 0b // -> beginning of contract code
 60 00
 39
 60 00
 f3
 
 
-// beginning of contract code
-60 66 // -> function selector
+// 0b: beginning of contract code
+60 9c // -> function selector
 56
 
 
@@ -45,6 +45,9 @@ f3
 35
 60 00
 52
+60 00
+60 20
+52
 60 40
 60 00
 20
@@ -58,7 +61,7 @@ f3
 00
 
 
-5b // 38: transfer(address,uint256)
+5b // 3d: transfer(address,uint256)
 33
 60 00
 52
@@ -73,23 +76,35 @@ f3
 80
 91
 10
-60 55 // -> revert
+60 8b // -> revert
 57
 90
 03
 90
 55
+// Transfer event
+60 04
+35
+33
+60 24
+35
+60 00
+52
+7f dd f2 52 ad 1b e2 c8 9b 69 c2 b0 68 fc 37 8d aa 95 2b a7 f1 63 c4 a1 16 28 f5 5a 4d f5 23 b3 ef
+60 20
+60 00
+a3
 60 23 // -> increase address' balance
 56
 
 
-5b // 55: revert
+5b // 8b: revert
 60 00
 80
 fd
 
 
-5b // 5a: totalSupply()
+5b // 90: totalSupply()
 60 01
 54
 60 00
@@ -99,7 +114,7 @@ fd
 f3
 
 
-5b // 66: function selector
+5b // 9c: function selector
 60 00
 35
 60 e0
@@ -117,12 +132,12 @@ f3
 80
 63 a9 05 9c bb
 14
-60 38 // -> transfer(address,uint256)
+60 3d // -> transfer(address,uint256)
 57
 80
 63 18 16 0d dd
 14
-60 5a // -> totalSupply()
+60 90 // -> totalSupply()
 57
-60 55 // -> revert
-56 // 98: contract length
+60 8b // -> revert
+56 // cf: contract length
