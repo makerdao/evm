@@ -11,8 +11,32 @@
 f3
 
 
-# start
-60 -> function_selector
+5b # start
+60 00
+35
+60 e0
+1c
+80
+63 70 a0 82 31
+14
+60 -> balanceOf(address)
+57
+80
+63 40 c1 0f 19
+14
+60 -> mint(address,uint256)
+57
+80
+63 a9 05 9c bb
+14
+60 -> transfer(address,uint256)
+57
+80
+63 18 16 0d dd
+14
+60 -> totalSupply()
+57
+60 -> revert
 56
 
 
@@ -98,12 +122,6 @@ a3
 56
 
 
-5b # revert
-60 00
-80
-fd
-
-
 5b # totalSupply()
 60 01
 54
@@ -114,32 +132,10 @@ fd
 f3
 
 
-5b # function_selector
+5b # revert
 60 00
-35
-60 e0
-1c
 80
-63 70 a0 82 31
-14
-60 -> balanceOf(address)
-57
-80
-63 40 c1 0f 19
-14
-60 -> mint(address,uint256)
-57
-80
-63 a9 05 9c bb
-14
-60 -> transfer(address,uint256)
-57
-80
-63 18 16 0d dd
-14
-60 -> totalSupply()
-57
-60 -> revert
-56
+fd
+
 
 00 # contract_length
