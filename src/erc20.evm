@@ -64,6 +64,7 @@ f3
 01
 60 01
 55
+60 00
 5b # increase_address_balance
 60 04
 35
@@ -82,7 +83,8 @@ f3
 01
 90
 55
-00
+60 -> Transfer(address,address,uint256)
+56
 
 
 5b # transfer(address,uint256)
@@ -106,10 +108,15 @@ f3
 03
 90
 55
-// Transfer event
+33
+60 -> increase_address_balance
+56
+
+
+5b # Transfer(address,address,uint256)
 60 04
 35
-33
+90
 60 24
 35
 60 00
@@ -118,8 +125,7 @@ f3
 60 20
 60 00
 a3
-60 -> increase_address_balance
-56
+00
 
 
 5b # totalSupply()
