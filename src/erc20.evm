@@ -2,9 +2,9 @@
 
 
 // constructor
-60 -> contract_length
+61 -> contract_length
 80
-60 0b
+60 0c
 60 00
 39
 60 00
@@ -19,34 +19,34 @@ f3
 80
 63 06 fd de 03
 14
-60 -> name()
+61 -> name()
 57
 80
 63 95 d8 9b 41
 14
-60 -> symbol()
+61 -> symbol()
 57
 80
 63 70 a0 82 31
 14
-60 -> balanceOf(address)
+61 -> balanceOf(address)
 57
 80
 63 40 c1 0f 19
 14
-60 -> mint(address,uint256)
+61 -> mint(address,uint256)
 57
 80
 63 a9 05 9c bb
 14
-60 -> transfer(address,uint256)
+61 -> transfer(address,uint256)
 57
 80
 63 18 16 0d dd
 14
-60 -> totalSupply()
+61 -> totalSupply()
 57
-60 -> revert
+61 -> revert
 56
 
 
@@ -127,7 +127,7 @@ f3
 01
 90
 55
-60 -> Transfer(address,address,uint256)
+61 -> Transfer(address,address,uint256)
 56
 
 
@@ -146,14 +146,14 @@ f3
 80
 91
 10
-60 -> revert
+61 -> revert
 57
 90
 03
 90
 55
 33
-60 -> increase_address_balance
+61 -> increase_address_balance
 56
 
 

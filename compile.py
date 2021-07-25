@@ -26,7 +26,7 @@ def tokenize(lines):
     clean_lines = clean(lines)
     for line in clean_lines:
         no_tag_defs = re.sub('#.*', '', line)
-        no_tag_calls = re.sub('->.*', '->', no_tag_defs)
+        no_tag_calls = re.sub('->.*', '-> ->', no_tag_defs)
         if len(no_tag_calls) > 1:
             code = re.sub('[^a-f0-9->]*', '', no_tag_calls)
             opcodes = [code[i:i+2] for i in range(0, len(code), 2)]
@@ -42,7 +42,7 @@ def get_tags(lines):
             pre_code = contract[: i + 1]
             tokens = tokenize(pre_code)
             location = len(tokens) - 1
-            hex_location = hex(location)[2:].rjust(2, '0')
+            hex_location = hex(location)[2:].rjust(4, '0')
             tags[name] = hex_location
     return tags
 
