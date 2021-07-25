@@ -39,3 +39,9 @@ printf "^^^^^^^^^^ should be 0xdad0 ^^^^^^^^^^\n\n"
 
 seth call $contract 'totalSupply()'
 printf "^^^^^^^^^^ should be 0xdada ^^^^^^^^^^\n\n"
+
+seth call $contract 'symbol()' | seth --to-ascii
+printf "^^^^^^^^^^ should be DAI ^^^^^^^^^^\n\n"
+
+seth call $contract 'name()' | seth --to-ascii
+printf "^^^^^^^^^^ should be Dai Stablecoin ^^^^^^^^^^\n\n"
