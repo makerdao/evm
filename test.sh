@@ -45,3 +45,6 @@ printf "^^^^^^^^^^ should be DAI ^^^^^^^^^^\n\n"
 
 seth call $contract 'name()' | seth --to-ascii
 printf "^^^^^^^^^^ should be Dai Stablecoin ^^^^^^^^^^\n\n"
+
+seth call $contract 'decimals()' | seth --to-dec
+printf "^^^^^^^^^^ should be 18 ^^^^^^^^^^^\n\n"
