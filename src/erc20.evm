@@ -51,6 +51,10 @@ f3
 14
 61 -> totalSupply()
 57
+63 09 5e a7 b3
+14
+61 -> approve(address,uint256)
+57
 61 -> revert
 56
 
@@ -194,6 +198,23 @@ a3
 60 20
 60 00
 f3
+
+
+5b # approve(address,uint256)
+60 24
+35
+60 04
+35
+60 00
+52
+60 02
+60 20
+52
+60 40
+60 00
+20
+55
+00
 
 
 5b # revert
