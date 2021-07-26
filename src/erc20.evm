@@ -124,17 +124,23 @@ f3
 
 
 5b # mint(address,uint256)
-60 01
-54
 60 24
 35
+60 01
+54
+81         // [amount,total,amount]
 01
 60 01
 55
-60 00
-5b # increase_address_balance
 60 04
 35
+60 00
+61 -> increase[from,to,amount]
+56
+
+
+5b # increase[from,to,amount]
+81        // [to,from,to,amount]
 60 00
 52
 60 00
@@ -143,51 +149,58 @@ f3
 60 40
 60 00
 20
-80
+80       // [kk,kk,from,to,amount]
 54
-60 24
-35
+84       // [amount,current,kk,from,to,amount]
 01
-90
+90       // [kk,new,from,to,amount]
 55
-61 -> Transfer(address,address,uint256)
+61 -> emit_transfer[from,to,amount]
 56
 
 
-5b # transfer(address,uint256)
-33
+5b # transfer[from,to,amount]
+82        // [amount,from,to,amount]
+81        // [from,amount,from,to,amount]
 60 00
+52
+60 00
+60 20
 52
 60 40
 60 00
 20
-80
+80        // [kk,kk,amount,from,to,amount]
+91        // [amount,kk,kk,from,to,amount]
+90        // [kk,amount,kk,from,to,amount]
 54
-80
-60 24
-35
-80
-91
-10
+80        // [current,current,amount,kk,from,to,amount]
+82        // [amount,current,current,amount,kk,from,to,amount]
+11
 61 -> revert
-57
-90
+57        // [current,amount,kk,from,to,amount]
 03
-90
+90        // [kk,new,from,to,amount]
 55
-33
-61 -> increase_address_balance
+61 -> increase[from,to,amount]
 56
 
 
-5b # Transfer(address,address,uint256)
-60 04
-35
-90
+5b # transfer(address,uint256)
 60 24
 35
+60 04
+35
+33
+61 -> transfer[from,to,amount]
+56
+
+
+5b # emit_transfer[from,to,amount]
+91             // [amount,to,from]
 60 00
 52
+90             // [from,to]
 7f dd f2 52 ad 1b e2 c8 9b 69 c2 b0 68 fc 37 8d aa 95 2b a7 f1 63 c4 a1 16 28 f5 5a 4d f5 23 b3 ef
 60 20
 60 00

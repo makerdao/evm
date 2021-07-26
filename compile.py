@@ -54,7 +54,8 @@ def replace_tags(lines, tags):
         if '->' in line:
             tag_call = re.sub('.*-> ', '', line)
             location = tags[tag_call]
-            escaped_call = tag_call.replace('(', '\(').replace(')', '\)')
+            escaped_call = tag_call.replace('(', '\(').replace(')', '\)') \
+                .replace('[', '\[').replace(']', '\]')
             new_line = re.sub('-> ' + escaped_call, location, line)
         result.append(new_line)
     return result
