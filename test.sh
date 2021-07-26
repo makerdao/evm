@@ -49,5 +49,8 @@ printf "^^^^^^^^^^ should be Dai Stablecoin ^^^^^^^^^^\n\n"
 seth call $contract 'decimals()' | seth --to-dec
 printf "^^^^^^^^^^ should be 18 ^^^^^^^^^^^\n\n"
 
-seth send $contract 'approve(address,uint256)' 0x123 0xff
+seth send $contract 'approve(address,uint256)' 0x123 0xfafa
 printf "^^^^^^^^^^ should succeed ^^^^^^^^^\n\n"
+
+seth call $contract 'allowance(address,address)' $ETH_FROM 0x123
+printf "^^^^^^^^^^ should be 0xfafa ^^^^^^^\n\n"
