@@ -56,9 +56,14 @@ f3
 14
 61 -> approve(address,uint256)
 57
+80
 63 dd 62 ed 3e
 14
 61 -> allowance(address,address)
+57
+63 23 b8 72 dd
+14
+61 -> transferFrom(address,address,uint256)
 57
 61 -> revert
 56
@@ -145,6 +150,34 @@ f3
 60 04
 35
 33
+61 -> transfer[from,to,amount]
+56
+
+
+5b # transferFrom(address,address,uint256)
+60 24
+35
+60 00
+52
+60 04
+35
+60 20
+52
+60 40
+60 00
+20
+54
+60 44
+35
+11
+61 -> revert
+57
+60 44
+35
+60 24
+35
+60 04
+35
 61 -> transfer[from,to,amount]
 56
 
