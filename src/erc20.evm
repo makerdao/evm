@@ -66,9 +66,15 @@ f3
 14
 61 -> transferFrom(address,address,uint256)
 57
+80
 63 65 fa e3 5e
 14
 61 -> rely(address)
+57
+80
+63 bf 35 3d bb
+14
+61 -> wards(address)
 57
 61 -> revert
 56
@@ -319,6 +325,17 @@ f3
 35
 55
 00
+
+
+5b # wards(address)
+60 04
+35
+54
+60 00
+52
+60 20
+60 00
+f3
 
 
 5b # revert

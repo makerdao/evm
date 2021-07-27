@@ -95,3 +95,7 @@ printf "^^^^^^^^^^ should be 0xdd0d ^^^^^^^^\n\n"
 echo "rely(0x123)"
 seth send $contract 'rely(address)' 0x123
 printf "^^^^^^^^^^ should succeed ^^^^^\n\n"
+
+echo "wards(0x123)"
+seth call $contract 'wards(address)' 0x123
+printf "                                                       should be 1\n\n"
