@@ -166,12 +166,20 @@ f3
 60 40
 60 00
 20
+80         // [kk,kk]
 54
+80         // [allowance,allowance,kk]
 60 44
 35
-11
+80         // [amount,amount,allowance,allowance,kk]
+91         // [allowance,amount,amount,allowance,kk]
+10
 61 -> revert
 57
+90         // [allowance,amount,kk]
+03
+90         // [kk,new]
+55
 60 44
 35
 60 24

@@ -4,7 +4,7 @@ contract="${1:-$(cat /dev/stdin)}"
 
 printf "\n\nstarting tests\n\n"
 
-echo "fallback"
+echo "fallback function"
 seth send $contract
 printf "^^^^^^^^^^ should fail ^^^^^^^^^^\n\n"
 
