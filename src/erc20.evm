@@ -139,23 +139,13 @@ f3
 56
 
 
-5b # increase[from,to,amount]
-81        // [to,from,to,amount]
-60 00
-52
-60 00
-60 20
-52
-60 40
-60 00
-20
-80       // [kk,kk,from,to,amount]
-54
-84       // [amount,current,kk,from,to,amount]
-01
-90       // [kk,new,from,to,amount]
-55
-61 -> emit_transfer[from,to,amount]
+5b # transfer(address,uint256)
+60 24
+35
+60 04
+35
+33
+61 -> transfer[from,to,amount]
 56
 
 
@@ -186,13 +176,23 @@ f3
 56
 
 
-5b # transfer(address,uint256)
-60 24
-35
-60 04
-35
-33
-61 -> transfer[from,to,amount]
+5b # increase[from,to,amount]
+81        // [to,from,to,amount]
+60 00
+52
+60 00
+60 20
+52
+60 40
+60 00
+20
+80       // [kk,kk,from,to,amount]
+54
+84       // [amount,current,kk,from,to,amount]
+01
+90       // [kk,new,from,to,amount]
+55
+61 -> emit_transfer[from,to,amount]
 56
 
 
