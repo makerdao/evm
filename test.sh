@@ -96,6 +96,10 @@ echo "rely(0x123) -F ETH_FROM_2"
 seth send $contract -F $ETH_FROM_2 'rely(address)' 0x123
 printf "^^^^^^^^^^ should fail ^^^^^^^^^\n\n"
 
+echo "mint(ETH_FROM, 0x1) -F ETH_FROM_2"
+seth send $contract 'mint(address,uint256)' $ETH_FROM_2 0x1
+printf "^^^^^^^^^^ should succeed ^^^^^^^^^^\n\n"
+
 echo "rely(ETH_FROM_2)"
 seth send $contract 'rely(address)' $ETH_FROM_2
 printf "^^^^^^^^^^ should succeed ^^^^^\n\n"
@@ -107,3 +111,7 @@ printf "^^^^^^^^^^ should succeed ^^^^^^^^^\n\n"
 echo "wards(0x123)"
 seth call $contract 'wards(address)' 0x123
 printf "                                                       should be 1\n\n"
+
+echo "mint(ETH_FROM, 0x1) -F ETH_FROM_2"
+seth send $contract 'mint(address,uint256)' $ETH_FROM_2 0x1
+printf "^^^^^^^^^^ should succeed ^^^^^^^^^^\n\n"

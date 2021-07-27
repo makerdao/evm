@@ -143,6 +143,10 @@ f3
 
 
 5b # mint(address,uint256)
+61 -> authed_mint
+61 -> auth[jump]
+56
+5b # authed_mint
 60 24
 35
 60 01
