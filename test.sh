@@ -92,9 +92,17 @@ echo "allowance(ETH_FROM, 0x123)"
 seth call $contract 'allowance(address,address)' $ETH_FROM 0x123
 printf "^^^^^^^^^^ should be 0xdd0d ^^^^^^^^\n\n"
 
-echo "rely(0x123)"
-seth send $contract 'rely(address)' 0x123
+echo "rely(0x123) -F ETH_FROM_2"
+seth send $contract -F $ETH_FROM_2 'rely(address)' 0x123
+printf "^^^^^^^^^^ should fail ^^^^^^^^^\n\n"
+
+echo "rely(ETH_FROM_2)"
+seth send $contract 'rely(address)' $ETH_FROM_2
 printf "^^^^^^^^^^ should succeed ^^^^^\n\n"
+
+echo "rely(0x123) -F ETH_FROM_2"
+seth send $contract -F $ETH_FROM_2 'rely(address)' 0x123
+printf "^^^^^^^^^^ should succeed ^^^^^^^^^\n\n"
 
 echo "wards(0x123)"
 seth call $contract 'wards(address)' 0x123

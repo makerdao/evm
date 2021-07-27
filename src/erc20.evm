@@ -2,9 +2,12 @@
 
 
 // constructor
+60 01
+33
+55
 61 -> contract_length
 80
-60 0c
+60 10
 60 00
 39
 60 00
@@ -320,6 +323,10 @@ f3
 
 
 5b # rely(address)
+61 -> authed_rely
+61 -> auth[jump]
+56
+5b # authed_rely
 60 01
 60 04
 35
@@ -336,6 +343,15 @@ f3
 60 20
 60 00
 f3
+
+
+5b # auth[jump]
+33
+54
+15
+61 -> revert
+57
+56
 
 
 5b # revert
