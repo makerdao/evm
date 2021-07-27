@@ -61,9 +61,14 @@ f3
 14
 61 -> allowance(address,address)
 57
+80
 63 23 b8 72 dd
 14
 61 -> transferFrom(address,address,uint256)
+57
+63 65 fa e3 5e
+14
+61 -> rely(address)
 57
 61 -> revert
 56
@@ -306,6 +311,14 @@ a3
 60 20
 60 00
 f3
+
+
+5b # rely(address)
+60 01
+60 04
+35
+55
+00
 
 
 5b # revert

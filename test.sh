@@ -91,3 +91,7 @@ printf "^^^^^^^^^^ should be 0xda ^^^^^^^^^^\n\n"
 echo "allowance(ETH_FROM, 0x123)"
 seth call $contract 'allowance(address,address)' $ETH_FROM 0x123
 printf "^^^^^^^^^^ should be 0xdd0d ^^^^^^^^\n\n"
+
+echo "rely(0x123)"
+seth send $contract 'rely(address)' 0x123
+printf "^^^^^^^^^^ should succeed ^^^^^\n\n"
