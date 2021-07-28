@@ -152,7 +152,10 @@ f3
 60 01
 54
 81         // [amount,total,amount]
-01
+61 -> mint_post_add
+61 -> add[jump,x,y]
+56
+5b # mint_post_add
 60 01
 55
 60 04
@@ -355,6 +358,20 @@ f3
 15
 61 -> revert
 57
+56
+
+
+5b # add[jump,x,y]
+91   // [y,x,jump]
+80   // [y,y,x,jump]
+91   // [x,y,y,jump]
+01
+80   // [sum,sum,y,jump]
+91   // [y,sum,sum,jump]
+11
+61 -> revert
+57
+90   // [jump,sum]
 56
 
 

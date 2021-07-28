@@ -97,8 +97,8 @@ seth send $contract -F $ETH_FROM_2 'rely(address)' 0x123
 printf "^^^^^^^^^^ should fail ^^^^^^^^^\n\n"
 
 echo "mint(ETH_FROM, 0x1) -F ETH_FROM_2"
-seth send $contract 'mint(address,uint256)' $ETH_FROM_2 0x1
-printf "^^^^^^^^^^ should succeed ^^^^^^^^^^\n\n"
+seth send $contract -F $ETH_FROM_2 'mint(address,uint256)' 0x123 0x1
+printf "^^^^^^^^^^ should fail ^^^^^^^^^^\n\n"
 
 echo "rely(ETH_FROM_2)"
 seth send $contract 'rely(address)' $ETH_FROM_2
@@ -112,6 +112,18 @@ echo "wards(0x123)"
 seth call $contract 'wards(address)' 0x123
 printf "                                                       should be 1\n\n"
 
-echo "mint(ETH_FROM, 0x1) -F ETH_FROM_2"
-seth send $contract 'mint(address,uint256)' $ETH_FROM_2 0x1
+echo "mint(0x123, 0x1) -F ETH_FROM_2"
+seth send $contract -F $ETH_FROM_2 'mint(address,uint256)' 0x123 0x1
 printf "^^^^^^^^^^ should succeed ^^^^^^^^^^\n\n"
+
+echo "balanceOf(0x123)"
+seth call $contract 'balanceOf(address)' 0x123
+printf "^^^^^^^^^^                                          should be 0xdb\n\n"
+
+echo "mint(0x123, max_uint)"
+seth send $contract 'mint(address,uint256)' 0x123 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+printf "^^^^^^^^^ should fail ^^^^^^^^^^^^^^\n\n"
+
+echo "balanceOf(0x123)"
+seth call $contract 'balanceOf(address)' 0x123
+printf "                                                    should be 0xda\n\n"
