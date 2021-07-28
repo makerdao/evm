@@ -1,0 +1,29 @@
+60 1d // copy 1d bytes
+60 0c // which are in code position 0c
+60 00 // to memory position 0
+39    // do it
+60 1d // return 1d bytes
+60 00 // which are in memory position 0
+f3    // do it
+
+// put a '32' in memory position '00'
+60 20
+60 00
+52
+
+// put a '10' in memory position '32'
+60 0a
+60 20
+52
+
+// put 'hola mundo' in memory position '64'
+69 68 6f 6c 61 20 6d 75 6e 64 6f
+60 40
+52
+
+// tell f3 the size and position of what we want to return
+60 60
+60 00
+
+// return it
+f3
