@@ -4,17 +4,6 @@ file = open('src/erc20.bin')
 code = file.read()[2:-1]
 bytes = [code[i:i+2] for i in range(len(code)) if i % 2 == 0]
 
-jumpdests = []
-for i, byte in enumerate(bytes):
-    if byte == '5b':
-        location = hex(i)[2:]
-        if len(location) % 2 != 0:
-            location = '0' + location
-        elements = [location[i:i+2] for i in range(len(location)) if i % 2 == 0]
-        if len(elements) > 2:
-            raise ValueError('3-byte jumpdests not supported')
-        jumpdests.append(elements)
-
 lines = []
 length = 1
 for byte in bytes:
@@ -26,7 +15,22 @@ for byte in bytes:
         lines[-1].append(byte)
         length -= 1
 
+jumpdests = []
+for i, bytes in enumerate(lines):
+    if bytes[0] == '5b':
+        length = 0
+        for bytes in lines[:i]:
+            length += len(bytes)
+        location = hex(length)[2:]
+        if len(location) % 2 != 0:
+            location = '0' + location
+        elements = [location[i:i+2] for i in range(len(location)) if i % 2 == 0]
+        if len(elements) > 2:
+            raise ValueError('3-byte jumpdests not supported')
+        jumpdests.append(elements)
+
 index = 0
+print('# start')
 for bytes in lines:
     line = ' '.join(bytes)
     if (line == '5b'):
@@ -43,7 +47,7 @@ for bytes in lines:
             if len(jumpdest) == 1:
                 two_byte = ['00', *jumpdest]
             if value in [jumpdest, two_byte]:
-                print('61 -> ' + ''.join(two_byte) + '\t// ' + line)
+                print('61 -> ' + ''.join(two_byte))
                 break
         else:
             print(line)
