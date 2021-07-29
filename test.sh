@@ -126,4 +126,4 @@ printf "^^^^^^^^^ should fail ^^^^^^^^^^^^^^\n\n"
 
 echo "balanceOf(0x123)"
 seth call $contract 'balanceOf(address)' 0x123
-printf "                                                    should be 0xda\n\n"
+printf "                                                    should be 0xdb\n\n"
