@@ -1,6 +1,8 @@
 #! /usr/bin/python3
 
-file = open('src/erc20.bin')
+import sys
+
+file = open(sys.argv[1])
 code = file.read()[2:-1]
 bytes = [code[i:i+2] for i in range(len(code)) if i % 2 == 0]
 
@@ -47,7 +49,7 @@ for bytes in lines:
             if len(jumpdest) == 1:
                 two_byte = ['00', *jumpdest]
             if value in [jumpdest, two_byte]:
-                print('61 -> ' + ''.join(two_byte))
+                print('61 -> ' + ''.join(two_byte) + '\t// ' + line)
                 break
         else:
             print(line)

@@ -15,7 +15,7 @@ def purge(lines):
 def clean(lines):
     result = []
     for line in lines:
-        clean = re.sub('//.*', '', line)
+        clean = re.sub('\s*//.*', '', line)
         no_newline = re.sub('\n', '', clean)
         if len(no_newline) > 1:
             result.append(no_newline)
