@@ -1,13 +1,27 @@
 // ERC-20 implementation
 
 
-// constructor
+// rely deployer address
 60 01
 33
 55
-61 -> contract_length
+
+// construct DOMAIN_SEPARATOR using chainId param
+60 20
+61 -> end
+60 21
+01
+60 00
+39
+60 00
+51
+60 02
+55
+
+// return runtime code
+61 -> end
 80
-60 10
+60 21
 60 00
 39
 60 00
@@ -78,6 +92,10 @@ f3
 63 bf 35 3d bb
 14
 61 -> wards(address)
+57
+63 36 44 e5 15
+14
+61 -> DOMAIN_SEPARATOR()
 57
 61 -> revert
 56
@@ -361,6 +379,16 @@ f3
 56
 
 
+5b # DOMAIN_SEPARATOR()
+60 02
+54
+60 00
+52
+60 20
+60 00
+f3
+
+
 5b # add[jump,x,y]
 91   // [y,x,jump]
 80   // [y,y,x,jump]
@@ -380,5 +408,6 @@ f3
 80
 fd
 
+cc # end
 
-00 # contract_length
+cc cc

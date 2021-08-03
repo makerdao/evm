@@ -127,3 +127,7 @@ printf "^^^^^^^^^ should fail ^^^^^^^^^^^^^^\n\n"
 echo "balanceOf(0x123)"
 seth call $contract 'balanceOf(address)' 0x123
 printf "                                                    should be 0xdb\n\n"
+
+echo "DOMAIN_SEPARATOR()"
+seth call $contract 'DOMAIN_SEPARATOR()'
+printf "0xdbb8cf42e1ecb028be3f3dbc922e1d878b963f411dc388ced501601c60f7c6f7\n\n"
