@@ -11,23 +11,67 @@
 55
 
 
-// construct DOMAIN_SEPARATOR using chainId param
+// construct DOMAIN_SEPARATOR
+
+// keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)")
+7f 45 49 50 37 31 32 44 6f 6d 61 69 6e 28 73 74 72 69 6e 67 20 6e 61 6d 65 2c 73 74 72 69 6e 67 20
+60 00
+52
+7f 76 65 72 73 69 6f 6e 2c 75 69 6e 74 32 35 36 20 63 68 61 69 6e 49 64 2c 61 64 64 72 65 73 73 20
 60 20
-61 -> end
-61 : start - constructor
-01
+52
+7f 76 65 72 69 66 79 69 6e 67 43 6f 6e 74 72 61 63 74 29 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60 40
+52
+60 52
 60 00
+20
+60 00
+52
+
+// keccak("Dai Stablecoin")
+7f 44 61 69 20 53 74 61 62 6c 65 63 6f 69 6e 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60 20
+52
+60 0e
+60 20
+20
+60 20
+52
+
+// keccak("1")
+7f 31 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+60 40
+52
+60 01
+60 40
+20
+60 40
+52
+
+// chainId constructor param
+60 20
+61 : end
+60 60
 39
+
+// contract's address
+30
+60 80
+52
+
+// hash and store
+60 a0
 60 00
-51
+20
 60 02
 55
 
 
 // return runtime code
-61 -> end
+61 : end - start
 80
-61 : start - constructor
+61 : start
 60 00
 39
 60 00
@@ -442,4 +486,8 @@ fd
 
 # end
 
-cc cc cc
+
+
+
+// chainId constructor param
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01
