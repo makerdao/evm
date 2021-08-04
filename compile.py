@@ -1,16 +1,6 @@
 #! /usr/bin/python3
 
-import sys, re
-
-def purge(lines):
-    result = []
-    append = False
-    for line in lines:
-        if '# start' in line:
-            append = True
-        if append:
-            result.append(line)
-    return result
+import sys, re, functools
 
 def clean(lines):
     result = []
@@ -26,24 +16,24 @@ def tokenize(lines):
     clean_lines = clean(lines)
     for line in clean_lines:
         no_tag_defs = re.sub('#.*', '', line)
-        no_tag_calls = re.sub('->.*', '-> ->', no_tag_defs)
+        no_tag_eqs = re.sub(':.*', ':: ::', no_tag_defs)
+        no_tag_calls = re.sub('->.*', '-> ->', no_tag_eqs)
         if len(no_tag_calls) > 1:
-            code = re.sub('[^a-f0-9->]*', '', no_tag_calls)
+            code = re.sub('[^a-f0-9->:]*', '', no_tag_calls)
             opcodes = [code[i:i+2] for i in range(0, len(code), 2)]
             result += opcodes
     return result
 
-def get_tags(lines):
+def get_tags(dirty_lines):
     tags = {}
-    contract = clean(purge(lines))
-    for i, line in enumerate(contract):
+    lines = clean(dirty_lines)
+    for i, line in enumerate(lines):
         if '#' in line:
             name = re.sub('.*# ', '', line)
-            pre_code = contract[: i + 1]
+            pre_code = lines[: i + 1]
             tokens = tokenize(pre_code)
             location = len(tokens)
-            hex_location = hex(location)[2:].rjust(4, '0')
-            tags[name] = hex_location
+            tags[name] = location
     return tags
 
 def replace_tags(lines, tags):
@@ -53,10 +43,21 @@ def replace_tags(lines, tags):
         new_line = line
         if '->' in line:
             tag_call = re.sub('.*-> ', '', line)
-            location = tags[tag_call]
+            location = tags[tag_call] - tags['start']
+            hex_location = hex(location)[2:].rjust(4, '0')
             escaped_call = tag_call.replace('(', '\(').replace(')', '\)') \
                 .replace('[', '\[').replace(']', '\]')
-            new_line = re.sub('-> ' + escaped_call, location, line)
+            new_line = re.sub('-> ' + escaped_call, hex_location, line)
+        elif ':' in line:
+            equation = line[line.find(':') + 2 :]
+            symbols = re.split(' - ', equation)
+            locations = []
+            for symbol in symbols:
+                location = tags[symbol]
+                locations.append(location)
+            location = functools.reduce(lambda a,b: a - b, locations)
+            hex_location = hex(location)[2:].rjust(4, '0')
+            new_line = re.sub(':.*', hex_location, line)
         result.append(new_line)
     return result
 
