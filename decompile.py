@@ -3,18 +3,36 @@
 import sys
 
 file = open(sys.argv[1])
-code = file.read()[2:-1]
+has_constructor = False
+if len(sys.argv) > 2 and sys.argv[2] == 'deployment':
+    has_constructor = True
+
+code = file.read()
+if code[:2] == '0x':
+    code = code[2:]
+if code[-1:] == '\n':
+    code = code[:-1]
 bytes = [code[i:i+2] for i in range(len(code)) if i % 2 == 0]
 
+constructor = []
 lines = []
 length = 1
+in_constructor = has_constructor
 for byte in bytes:
     if length == 1:
         if byte[0] in ['6', '7']:
             length = int(byte, 16) - 0x60 + 2
-        lines.append([byte])
+        if in_constructor:
+            constructor.append([ byte ])
+        else:
+            lines.append([ byte ])
+        if byte == 'f3':
+            in_constructor = False
     else:
-        lines[-1].append(byte)
+        if in_constructor:
+            constructor[-1].append(byte)
+        else:
+            lines[-1].append(byte)
         length -= 1
 
 jumpdests = []
@@ -31,6 +49,14 @@ for i, bytes in enumerate(lines):
             raise ValueError('3-byte jumpdests not supported')
         jumpdests.append(elements)
 
+if has_constructor:
+    print('# constructor')
+    for bytes in constructor:
+        line = ' '.join(bytes)
+        print(line)
+
+print('\n\n\n')
+
 index = 0
 print('# start')
 for bytes in lines:
@@ -40,7 +66,7 @@ for bytes in lines:
         if len(jumpdests[index]) == 1:
             two_byte = ['00', *jumpdests[index]]
         print('\n')
-        print(line + ' # ' + ''.join(two_byte))
+        print('# ' + ''.join(two_byte) + '\n' + line)
         index += 1
     elif bytes[0] in ['60', '61']:
         value = bytes[1:]
