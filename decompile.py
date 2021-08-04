@@ -18,7 +18,7 @@ constructor = []
 lines = []
 length = 1
 in_constructor = has_constructor
-for byte in bytes:
+for i, byte in enumerate(bytes):
     if length == 1:
         if byte[0] in ['6', '7']:
             length = int(byte, 16) - 0x60 + 2
@@ -26,7 +26,9 @@ for byte in bytes:
             constructor.append([ byte ])
         else:
             lines.append([ byte ])
-        if byte == 'f3':
+        if byte == 'f3' and bytes[i + 1] != 'fe':
+            in_constructor = False
+        elif byte == 'fe':
             in_constructor = False
     else:
         if in_constructor:
@@ -61,13 +63,15 @@ index = 0
 print('# start')
 for bytes in lines:
     line = ' '.join(bytes)
-    if (line == '5b'):
+    if line == '5b':
         two_byte = jumpdests[index]
         if len(jumpdests[index]) == 1:
             two_byte = ['00', *jumpdests[index]]
-        print('\n')
         print('# ' + ''.join(two_byte) + '\n' + line)
         index += 1
+    elif line in ['56', 'f3', 'fd']:
+        print(line)
+        print('\n')
     elif bytes[0] in ['60', '61']:
         value = bytes[1:]
         for jumpdest in jumpdests:
