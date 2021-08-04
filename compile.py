@@ -41,7 +41,7 @@ def get_tags(lines):
             name = re.sub('.*# ', '', line)
             pre_code = contract[: i + 1]
             tokens = tokenize(pre_code)
-            location = len(tokens) - 1
+            location = len(tokens)
             hex_location = hex(location)[2:].rjust(4, '0')
             tags[name] = hex_location
     return tags

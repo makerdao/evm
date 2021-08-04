@@ -29,6 +29,8 @@ f3
 
 
 # start
+
+// function selector
 60 00
 35
 60 e0
@@ -101,7 +103,8 @@ f3
 56
 
 
-5b # name()
+# name()
+5b
 60 20
 60 00
 52
@@ -118,7 +121,8 @@ f3
 f3
 
 
-5b # symbol()
+# symbol()
+5b
 60 20
 60 00
 52
@@ -135,7 +139,8 @@ f3
 f3
 
 
-5b # decimals()
+# decimals()
+5b
 60 12
 60 00
 52
@@ -144,7 +149,8 @@ f3
 f3
 
 
-5b # balanceOf(address)
+# balanceOf(address)
+5b
 60 04
 35
 60 00
@@ -160,11 +166,13 @@ f3
 f3
 
 
-5b # mint(address,uint256)
+# mint(address,uint256)
+5b
 61 -> authed_mint
 61 -> auth[jump]
 56
-5b # authed_mint
+# authed_mint
+5b
 60 24
 35
 60 01
@@ -173,7 +181,8 @@ f3
 61 -> mint_post_add
 61 -> add[jump,x,y]
 56
-5b # mint_post_add
+# mint_post_add
+5b
 60 01
 55
 60 04
@@ -183,7 +192,8 @@ f3
 56
 
 
-5b # transfer(address,uint256)
+# transfer(address,uint256)
+5b
 60 24
 35
 60 04
@@ -193,7 +203,8 @@ f3
 56
 
 
-5b # transferFrom(address,address,uint256)
+# transferFrom(address,address,uint256)
+5b
 60 24
 35
 60 00
@@ -229,7 +240,8 @@ f3
 56
 
 
-5b # transfer[from,to,amount]
+# transfer[from,to,amount]
+5b
 82        // [amount,from,to,amount]
 81        // [from,amount,from,to,amount]
 60 00
@@ -256,7 +268,8 @@ f3
 56
 
 
-5b # increase[from,to,amount]
+# increase[from,to,amount]
+5b
 81        // [to,from,to,amount]
 60 00
 52
@@ -276,7 +289,8 @@ f3
 56
 
 
-5b # emit_transfer[from,to,amount]
+# emit_transfer[from,to,amount]
+5b
 91             // [amount,to,from]
 60 00
 52
@@ -288,7 +302,8 @@ a3
 00
 
 
-5b # totalSupply()
+# totalSupply()
+5b
 60 01
 54
 60 00
@@ -298,7 +313,8 @@ a3
 f3
 
 
-5b # approve(address,uint256)
+# approve(address,uint256)
+5b
 60 24
 35
 60 04
@@ -327,7 +343,8 @@ a3
 00
 
 
-5b # allowance(address,address)
+# allowance(address,address)
+5b
 60 24
 35
 60 00
@@ -347,11 +364,13 @@ a3
 f3
 
 
-5b # rely(address)
+# rely(address)
+5b
 61 -> authed_rely
 61 -> auth[jump]
 56
-5b # authed_rely
+# authed_rely
+5b
 60 01
 60 04
 35
@@ -359,7 +378,8 @@ f3
 00
 
 
-5b # wards(address)
+# wards(address)
+5b
 60 04
 35
 54
@@ -370,7 +390,8 @@ f3
 f3
 
 
-5b # auth[jump]
+# auth[jump]
+5b
 33
 54
 15
@@ -379,7 +400,8 @@ f3
 56
 
 
-5b # DOMAIN_SEPARATOR()
+# DOMAIN_SEPARATOR()
+5b
 60 02
 54
 60 00
@@ -389,7 +411,8 @@ f3
 f3
 
 
-5b # add[jump,x,y]
+# add[jump,x,y]
+5b
 91   // [y,x,jump]
 80   // [y,y,x,jump]
 91   // [x,y,y,jump]
@@ -403,11 +426,12 @@ f3
 56
 
 
-5b # revert
+# revert
+5b
 60 00
 80
 fd
 
-cc # end
+# end
 
 cc cc
