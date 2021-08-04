@@ -37,51 +37,60 @@ for i, byte in enumerate(bytes):
             lines[-1].append(byte)
         length -= 1
 
-jumpdests = []
-for i, bytes in enumerate(lines):
-    if bytes[0] == '5b':
-        length = 0
-        for bytes in lines[:i]:
-            length += len(bytes)
-        location = hex(length)[2:]
-        if len(location) % 2 != 0:
-            location = '0' + location
-        elements = [location[i:i+2] for i in range(len(location)) if i % 2 == 0]
-        if len(elements) > 2:
-            raise ValueError('3-byte jumpdests not supported')
-        jumpdests.append(elements)
+def get_jumpdests(lines):
+    jumpdests = []
+    for i, bytes in enumerate(lines):
+        if bytes[0] == '5b':
+            length = 0
+            for bytes in lines[:i]:
+                length += len(bytes)
+            location = hex(length)[2:]
+            if len(location) % 2 != 0:
+                location = '0' + location
+            elements = [location[i:i+2] for i in range(len(location)) if i % 2 == 0]
+            if len(elements) > 2:
+                raise ValueError('3-byte jumpdests not supported')
+            jumpdests.append(elements)
+    return jumpdests
+
+def process(lines, constructor=False):
+    jumpdests = get_jumpdests(lines)
+    index = 0
+    for bytes in lines:
+        line = ' '.join(bytes)
+        if line == '5b':
+            two_byte = jumpdests[index]
+            if len(jumpdests[index]) == 1:
+                two_byte = ['00', *jumpdests[index]]
+            if constructor:
+                print('# c-' + ''.join(two_byte) + '\n' + line)
+            else:
+                print('# ' + ''.join(two_byte) + '\n' + line)
+            index += 1
+        elif line in ['56', 'f3', 'fd']:
+            print(line)
+            print('\n')
+        elif bytes[0] in ['60', '61']:
+            value = bytes[1:]
+            for jumpdest in jumpdests:
+                two_byte = jumpdest
+                if len(jumpdest) == 1:
+                    two_byte = ['00', *jumpdest]
+                if value in [jumpdest, two_byte]:
+                    if constructor:
+                        print('61 : c-' + ''.join(two_byte))
+                    else:
+                        print('61 -> ' + ''.join(two_byte))
+                    break
+            else:
+                print(line)
+        else:
+            print(line)
+
 
 if has_constructor:
     print('# constructor')
-    for bytes in constructor:
-        line = ' '.join(bytes)
-        print(line)
-
-print('\n\n\n')
-
-index = 0
+    process(constructor, True)
+    print('\n\n\n')
 print('# start')
-for bytes in lines:
-    line = ' '.join(bytes)
-    if line == '5b':
-        two_byte = jumpdests[index]
-        if len(jumpdests[index]) == 1:
-            two_byte = ['00', *jumpdests[index]]
-        print('# ' + ''.join(two_byte) + '\n' + line)
-        index += 1
-    elif line in ['56', 'f3', 'fd']:
-        print(line)
-        print('\n')
-    elif bytes[0] in ['60', '61']:
-        value = bytes[1:]
-        for jumpdest in jumpdests:
-            two_byte = jumpdest
-            if len(jumpdest) == 1:
-                two_byte = ['00', *jumpdest]
-            if value in [jumpdest, two_byte]:
-                print('61 -> ' + ''.join(two_byte) + '\t// ' + line)
-                break
-        else:
-            print(line)
-    else:
-        print(line)
+process(lines)
