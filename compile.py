@@ -43,7 +43,12 @@ def replace_tags(lines, tags):
         new_line = line
         if '->' in line:
             tag_call = re.sub('.*-> ', '', line)
-            location = tags[tag_call] - tags['start']
+            start_location = 0
+            for tag in tags:
+                if tag.startswith('start'):
+                    start_location = tags[tag]
+                    break
+            location = tags[tag_call] - start_location
             hex_location = hex(location)[2:].rjust(4, '0')
             escaped_call = tag_call.replace('(', '\(').replace(')', '\)') \
                 .replace('[', '\[').replace(']', '\]')
@@ -67,3 +72,4 @@ tags = get_tags(lines)
 code = replace_tags(lines, tags)
 for line in code:
     sys.stdout.write(line + '\n')
+print('\n'.join(sys.argv[2:]))
