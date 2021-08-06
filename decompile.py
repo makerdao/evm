@@ -18,6 +18,7 @@ constructor = []
 lines = []
 length = 1
 in_constructor = has_constructor
+constructor_length = 0
 for i, byte in enumerate(bytes):
     if length == 1:
         if byte[0] in ['6', '7']:
@@ -26,10 +27,12 @@ for i, byte in enumerate(bytes):
             constructor.append([ byte ])
         else:
             lines.append([ byte ])
-        if byte == 'f3' and bytes[i + 1] != 'fe':
+        if (
+                in_constructor
+                and ((byte == 'f3' and bytes[i + 1] != 'fe') or byte == 'fe')
+        ):
             in_constructor = False
-        elif byte == 'fe':
-            in_constructor = False
+            constructor_length = i + 1
     else:
         if in_constructor:
             constructor[-1].append(byte)
@@ -92,5 +95,7 @@ if has_constructor:
     print('# constructor')
     process(constructor, True)
     print('\n\n\n')
-print('# start')
+print('# start-' + hex(constructor_length)[2:])
 process(lines)
+print('# end-' + hex(len(bytes) - constructor_length)[2:])
+print('// total length: ' + hex(len(bytes)))
