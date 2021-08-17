@@ -64,20 +64,20 @@ echo "decimals()"
 seth call $contract 'decimals()' | seth --to-dec
 printf "^^^^^^^^^^ should be 18 ^^^^^^^^^^^\n\n"
 
-echo "approve(0x123, 0xdddd)"
-seth send $contract 'approve(address,uint256)' 0x123 0xdddd
+echo "approve(ETH_FROM_2, 0xdddd)"
+seth send $contract 'approve(address,uint256)' $ETH_FROM_2 0xdddd
 printf "^^^^^^^^^^ should succeed ^^^^^^^^^\n\n"
 
-echo "allowance(ETH_FROM, 0x123)"
-seth call $contract 'allowance(address,address)' $ETH_FROM 0x123
+echo "allowance(ETH_FROM, ETH_FROM_2)"
+seth call $contract 'allowance(address,address)' $ETH_FROM $ETH_FROM_2
 printf "^^^^^^^^^^ should be 0xdddd ^^^^^^^\n\n"
 
-echo "transferFrom(ETH_FROM, 0x123, 0xffff)"
-seth send $contract 'transferFrom(address,address,uint256)' $ETH_FROM 0x123 0xffff
+echo "transferFrom(ETH_FROM, 0x123, 0xffff) -F ETH_FROM_2"
+seth send $contract 'transferFrom(address,address,uint256)' -F $ETH_FROM_2 $ETH_FROM 0x123 0xffff
 printf "^^^^^^^^^^ should fail ^^^^^^^^^^^\n\n"
 
-echo "transferFrom(ETH_FROM, 0x123, 0xd0)"
-seth send $contract 'transferFrom(address,address,uint256)' $ETH_FROM 0x123 0xd0
+echo "transferFrom(ETH_FROM, 0x123, 0xd0) -F ETH_FROM_2"
+seth send $contract 'transferFrom(address,address,uint256)' -F $ETH_FROM_2 $ETH_FROM 0x123 0xd0
 printf "^^^^^^^^^^ should succeed ^^^^^^^^^^\n\n"
 
 echo "balanceOf(ETH_FROM)"
@@ -88,8 +88,8 @@ echo "balanceOf(0x123)"
 seth call $contract 'balanceOf(address)' 0x123
 printf "^^^^^^^^^^ should be 0xda ^^^^^^^^^^\n\n"
 
-echo "allowance(ETH_FROM, 0x123)"
-seth call $contract 'allowance(address,address)' $ETH_FROM 0x123
+echo "allowance(ETH_FROM, ETH_FROM_2)"
+seth call $contract 'allowance(address,address)' $ETH_FROM $ETH_FROM_2
 printf "^^^^^^^^^^ should be 0xdd0d ^^^^^^^^\n\n"
 
 echo "rely(0x123) -F ETH_FROM_2"
