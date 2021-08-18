@@ -59,7 +59,7 @@ def get_jumpdests(lines):
 def process(lines, constructor=False):
     jumpdests = get_jumpdests(lines)
     index = 0
-    for bytes in lines:
+    for i, bytes in enumerate(lines):
         line = ' '.join(bytes)
         if line == '5b':
             two_byte = jumpdests[index]
@@ -70,9 +70,14 @@ def process(lines, constructor=False):
             else:
                 print('# ' + ''.join(two_byte) + '\n' + line)
             index += 1
-        elif line in ['56', 'f3', 'fd']:
+        elif line in ['56', 'f3', 'fd', '00']:
             print(line)
             print('\n')
+        elif line == 'fe' and lines[i - 1] == ['00'] and lines[i + 1] == ['a1']:
+            print(line)
+            print('\n')
+            print(''.join([''.join(line) for line in lines[i + 1:]]))
+            break
         elif bytes[0] in ['60', '61']:
             value = bytes[1:]
             for jumpdest in jumpdests:
