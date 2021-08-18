@@ -1,0 +1,72 @@
+# constructor
+
+61 : end - start
+61 : start
+60 00
+39
+61 : end - start
+60 00
+f3
+
+
+
+# start
+
+60 00
+35
+60 e0
+1c
+63 7d 1b c8 42  // poke(uint256[],uint256[],uint256[],uint8,bytes32,bytes32)
+14
+61 -> poke
+57
+60 00
+60 00
+fd
+
+
+# poke
+
+5b
+
+// copy arguments to memory
+60 64
+36
+03
+60 64
+60 80
+37
+
+// hash the data arrays
+60 c4
+36
+03
+60 e0
+20
+60 40
+52
+
+// hash again with Ethereum signature prefix
+7f 00 00 00 00 19 45 74 68 65 72 65 75 6d 20 53 69 67 6e 65 64 20 4d 65 73 73 61 67 65 3a 0a 33 32
+60 20
+52
+60 3c
+60 24
+20
+60 60
+52
+
+// perform EC recover on the hashed data + signature
+60 20
+60 00
+60 80
+60 60
+60 01
+5a
+fa
+
+60 20
+60 00
+f3
+
+# end
