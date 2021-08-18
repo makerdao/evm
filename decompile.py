@@ -73,11 +73,11 @@ def process(lines, constructor=False):
         elif line in ['56', 'f3', 'fd', '00']:
             print(line)
             print('\n')
-        elif line == 'fe' and lines[i - 1] == ['00'] and lines[i + 1] == ['a1']:
-            print(line)
-            print('\n')
-            print(''.join([''.join(line) for line in lines[i + 1:]]))
-            break
+            if i < len(lines) - 2 and lines[i + 1] == ['fe'] and lines[i + 2] == ['a1']:
+                print(''.join(lines[i + 1]))
+                print('\n')
+                print(''.join([''.join(line) for line in lines[i + 2:]]))
+                break
         elif bytes[0] in ['60', '61']:
             value = bytes[1:]
             for jumpdest in jumpdests:
