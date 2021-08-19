@@ -56,7 +56,7 @@ fd
 60 60
 52
 
-// perform EC recover on the hashed data + signature
+// make a static call to ecrecover precompile at address 0x01
 60 20
 60 00
 60 80
