@@ -91,8 +91,19 @@ fa
 
 // check message is not stale
 80
+60 20
+02
+61 01 00
+51
+60 a0
+01
+01
+51
 60 00
-52
+54
+11
+61 -> revert
+57
 
 // iterate
 60 01
@@ -102,6 +113,13 @@ fa
 10
 61 -> loop
 57
+50
+50
+
+// set new medianizer age
+42
+60 00
+55
 
 60 20
 60 00
