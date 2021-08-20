@@ -18,4 +18,12 @@ v="0x${signature:130}"
 
 echo "poke"
 seth call $contract 'poke(uint256[],uint256[],uint256[],uint8,bytes32,bytes32)' [2,8] [3] [4] $v $r $s
-echo "^^^^^ should be         $ETH_FROM"
+printf "^^^^^ should revert with                              $ETH_FROM ^^^^^\n\n"
+
+echo "lift"
+seth send $contract 'lift(address)' $ETH_FROM
+printf "^^^^ should succeed ^^^^^^\n\n"
+
+echo "poke"
+seth call $contract 'poke(uint256[],uint256[],uint256[],uint8,bytes32,bytes32)' [2,8] [3] [4] $v $r $s
+printf "^^^^^ should be         $ETH_FROM\n\n"

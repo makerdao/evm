@@ -16,17 +16,20 @@ f3
 35
 60 e0
 1c
+80
 63 7d 1b c8 42  // poke(uint256[],uint256[],uint256[],uint8,bytes32,bytes32)
 14
 61 -> poke
 57
-60 00
-60 00
-fd
+63 3c 27 8b d5 // lift(address)
+14
+61 -> lift
+57
+61 -> revert
+56
 
 
 # poke
-
 5b
 
 // copy arguments to memory
@@ -65,8 +68,32 @@ fd
 5a
 fa
 
+// check signer is an oracle
+60 00
+51
+54
+15
+61 -> revert
+57
+
 60 20
 60 00
 f3
+
+
+# lift
+5b
+60 01
+60 04
+35
+55
+00
+
+
+# revert
+5b
+60 20
+60 00
+fd
 
 # end
