@@ -76,6 +76,33 @@ fa
 61 -> revert
 57
 
+// check arrays have elements (TODO: check they have same length)
+60 e0
+51
+80
+15
+61 -> revert
+57
+
+// loop over data arrays
+60 00
+# loop
+5b
+
+// check message is not stale
+80
+60 00
+52
+
+// iterate
+60 01
+01
+81
+81
+10
+61 -> loop
+57
+
 60 20
 60 00
 f3
