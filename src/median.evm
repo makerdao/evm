@@ -76,13 +76,45 @@ fa
 61 -> revert
 57
 
-// check arrays have elements (TODO: check they have same length)
+// check val array length > 0
 61 01 40
 51
-80
+80 // save array length to stack
 15
 61 -> revert
 57
+
+// check all array lengths are the same
+61 01 00
+51
+60 a0
+01
+81
+81 // save age position to stack
+60 20
+90
+03
+51
+14
+15
+61 -> revert
+57
+61 01 20
+51
+60 a0
+01
+82
+81 // save wat position in stack
+60 20
+90
+03
+51
+14
+15
+61 -> revert
+57
+90
+91 // stack (leftmost is older): [pos_age_0, pos_wat_0, len_val]
 
 // loop over data arrays
 60 00

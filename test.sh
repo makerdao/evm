@@ -16,9 +16,9 @@ r="${signature:0:66}"
 s="0x${signature:66:64}"
 v="0x${signature:130}"
 
-echo "poke"
+echo "poke from a non-oracle"
 seth send $contract 'poke(uint8,bytes32,bytes32,uint256[],uint256[],bytes32[])' $v $r $s [3253,48630] [1629490785,1629490799] [0x6574687573640000000000000000000000000000000000000000000000000000,0x6274637573640000000000000000000000000000000000000000000000000000]
-printf "^^^^^ should revert with                              $ETH_FROM ^^^^^\n\n"
+printf "^^^^^ should fail ^^^^^\n\n"
 
 echo "lift"
 seth send $contract 'lift(address)' $ETH_FROM
@@ -26,8 +26,8 @@ printf "^^^^ should succeed ^^^^^^\n\n"
 
 echo "poke"
 seth send $contract 'poke(uint8,bytes32,bytes32,uint256[],uint256[],bytes32[])' $v $r $s [3253,48630] [1629490785,1629490799] [0x6574687573640000000000000000000000000000000000000000000000000000,0x6274637573640000000000000000000000000000000000000000000000000000]
-printf "^^^^^ should be         $ETH_FROM\n\n"
+printf "^^^^^ should succeed ^^^^^^\n\n"
 
-echo "poke again"
+echo "poke with stale message"
 seth send $contract 'poke(uint8,bytes32,bytes32,uint256[],uint256[],bytes32[])' $v $r $s [3253,48630] [1629490785,1629490799] [0x6574687573640000000000000000000000000000000000000000000000000000,0x6274637573640000000000000000000000000000000000000000000000000000]
-printf "^^^^^ should revert with                              $ETH_FROM ^^^^^\n\n"
+printf "^^^^^ should fail ^^^^^\n\n"
