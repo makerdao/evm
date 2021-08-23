@@ -24,6 +24,18 @@ echo "lift"
 seth send $contract 'lift(address)' $ETH_FROM
 printf "^^^^ should succeed ^^^^^^\n\n"
 
+echo "poke with zero-element arrays"
+seth send $contract 'poke(uint8,bytes32,bytes32,uint256[],uint256[],bytes32[])' $v $r $s [] [] []
+printf "^^^^^ should fail ^^^^^^\n\n"
+
+echo "poke with too many age elements"
+seth send $contract 'poke(uint8,bytes32,bytes32,uint256[],uint256[],bytes32[])' $v $r $s [3253,48630] [1629490785,1629490799,1629490812] [0x6574687573640000000000000000000000000000000000000000000000000000,0x6274637573640000000000000000000000000000000000000000000000000000]
+printf "^^^^^ should fail ^^^^^^\n\n"
+
+echo "poke with too many wat elements"
+seth send $contract 'poke(uint8,bytes32,bytes32,uint256[],uint256[],bytes32[])' $v $r $s [3253,48630] [1629490785,1629490799] [0x6574687573640000000000000000000000000000000000000000000000000000,0x6274637573640000000000000000000000000000000000000000000000000000,0x6274637573640000000000000000000000000000000000000000000000000000]
+printf "^^^^^ should fail ^^^^^^\n\n"
+
 echo "poke"
 seth send $contract 'poke(uint8,bytes32,bytes32,uint256[],uint256[],bytes32[])' $v $r $s [3253,48630] [1629490785,1629490799] [0x6574687573640000000000000000000000000000000000000000000000000000,0x6274637573640000000000000000000000000000000000000000000000000000]
 printf "^^^^^ should succeed ^^^^^^\n\n"
