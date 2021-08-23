@@ -114,10 +114,10 @@ fa
 61 -> revert
 57
 90
-91 // stack (leftmost is older): [pos_age_0, pos_wat_0, len_val]
+91
 
 // loop over data arrays
-60 00
+60 00   // stack: [pos_age_0, pos_wat_0, len_val, i] <-
 # loop
 5b
 
