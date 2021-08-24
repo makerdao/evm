@@ -120,25 +120,19 @@ fa
 60 00   // stack: [pos_age_0, pos_wat_0, len_val, i] <-
 # loop
 5b
-
-// check message is not stale
 80
 60 20
 02
 80
-61 01 00
-51
-60 a0
+
+// check messages aren't stale
+85
 01
-01
-51
+51 // age[i]
 90
-61 01 20
-51
-60 a0
+84
 01
-01
-51
+51 // wat[i]
 80
 91
 90
