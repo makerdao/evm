@@ -1,0 +1,199 @@
+# constructor
+
+61 : end - start
+61 : start
+60 00
+39
+61 : end - start
+60 00
+f3
+
+
+
+# start
+
+60 00
+35
+60 e0
+1c
+80
+63 56 9c 83 e3  // poke(uint8,bytes32,bytes32,uint256[],uint256[],bytes32[])
+14
+61 -> poke
+57
+63 3c 27 8b d5 // lift(address)
+14
+61 -> lift
+57
+61 -> revert
+56
+
+
+# poke
+5b
+
+// copy arguments to memory
+60 04
+36
+03
+60 04
+60 80
+37
+
+// hash the data arrays
+60 c4
+36
+03
+61 01 40
+20
+60 40
+52
+
+// hash again with Ethereum signature prefix
+7b 19 45 74 68 65 72 65 75 6d 20 53 69 67 6e 65 64 20 4d 65 73 73 61 67 65 3a 0a 33 32
+60 20
+52
+60 3c
+60 24
+20
+60 60
+52
+
+// make a static call to ecrecover precompile at address(1)
+60 20
+60 00
+60 80
+60 60
+60 01
+5a
+fa
+
+// check signer is an oracle
+60 00
+51
+54
+15
+61 -> revert
+57
+
+// check val array length > 0
+61 01 40
+51
+80 // save array length to stack
+15
+61 -> revert
+57
+
+// check all array lengths are the same
+61 01 00
+51
+60 a0
+01
+81
+81 // save age position to stack
+60 20
+90
+03
+51
+14
+15
+61 -> revert
+57
+61 01 20
+51
+60 a0
+01
+82
+81 // save wat position in stack
+60 20
+90
+03
+51
+14
+15
+61 -> revert
+57
+90
+91
+
+// loop over data arrays
+60 00   // stack: [pos_age_0, pos_wat_0, len_val, i] <-
+# loop
+5b
+80
+60 20
+02
+80
+80
+
+// check messages aren't stale
+86
+01
+51      // age[i]
+90
+84
+01
+51      // wat[i]
+80
+91
+90
+54
+11
+61 -> revert
+57
+
+// set new age for collateral
+80
+42
+90
+55
+
+// save values
+60 00
+52
+60 20
+60 00
+20
+61 01 60
+90
+91
+01
+51      // val[i]
+90
+55
+
+// iterate
+60 01
+01
+81
+81
+10
+61 -> loop
+57
+50
+50
+
+
+60 20
+60 00
+f3
+
+
+# lift
+5b
+60 01
+60 04
+35
+55
+00
+
+
+# revert
+5b
+60 00
+52
+60 20
+60 00
+fd
+
+# end
