@@ -13,6 +13,12 @@
 // keccak(uint8,7)       slot
 //
 
+
+
+
+
+# constructor
+
 61 -> end
 61 : start
 60 00
@@ -20,6 +26,10 @@
 61 -> end
 60 00
 f3
+
+
+
+
 
 # start
 
@@ -40,24 +50,43 @@ f3
 60 00
 fd
 
+
+
 # poke
 5b
 
-// ensure val array has the required length
-60 04                   // bar
+// copy calldata to memory
+60 04
+36
+03
+60 04
+60 00
+37
+
+// ensure arrays have required length
+60 04                 // bar
 54
-60 a4
-35
+60 00
+# bar-loop
+5b
+81
+81
+51
+51
 14
 15
-// Median/bar-too-low
-7f 4d 65 64 69 61 6e 2f 62 61 72 2d 74 6f 6f 2d 6c 6f 77 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-90
-61 -> revert
+61 -> revert-bar-too-low
+57
+60 20
+01
+80
+60 a0
+11
+61 -> bar-loop
 57
 50
-
 00
+
 
 # setBar
 5b
@@ -67,12 +96,19 @@ fd
 55
 00
 
-# revert
+
+
+# revert-bar-too-low
 5b
+7f 4d 65 64 69 61 6e 2f 62 61 72 2d 74 6f 6f 2d 6c 6f 77 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 60 00
 52
 60 20
 60 00
 fd
+
+
+
+
 
 # end
