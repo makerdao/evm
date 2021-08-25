@@ -1,3 +1,7 @@
+// Median Implementation in EVM bytecode
+// Storage layout:
+// slot 0: bar
+
 61 -> end
 61 : start
 60 00
@@ -16,20 +20,21 @@ f3
 14
 61 -> poke
 57
-61 -> revert
-56
+60 00
+60 00
+fd
 
 # poke
 5b
 
-// require(val_.length == bar, "Median/bar-too-low");
+// ensure val array has the required length
 60 00
 54                      // bar
 60 a4
 35
 14
 15
-61 4d 65 64 69 61 6e 2f 62 61 72 2d 74 6f 6f 2d 6c 6f 77 // Median/bar-too-low
+71 4d 65 64 69 61 6e 2f 62 61 72 2d 74 6f 6f 2d 6c 6f 77 // Median/bar-too-low
 90
 61 -> revert
 57
