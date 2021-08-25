@@ -1,6 +1,17 @@
 // Median Implementation in EVM bytecode
-// Storage layout:
-// slot 0: bar
+//
+//       Storage layout
+// slot                 name
+// --------------------------------------
+// 0                     wards
+// 1                     val
+// 2                     age
+// 3                     wat
+// 4                     bar
+// keccak(address,5)     orcl
+// keccak(address,6)     bud
+// keccak(uint8,7)       slot
+//
 
 61 -> end
 61 : start
@@ -16,9 +27,14 @@ f3
 35
 60 e0
 1c
+80
 63 89 bb b8 b2          // poke(uint256[],uint256[],uint8[],bytes32[],bytes32[])
 14
 61 -> poke
+57
+63 35 2d 3f ba          // setBar(uint256)
+14
+61 -> setBar
 57
 60 00
 60 00
@@ -28,18 +44,27 @@ fd
 5b
 
 // ensure val array has the required length
-60 00
-54                      // bar
+60 04                   // bar
+54
 60 a4
 35
 14
 15
-71 4d 65 64 69 61 6e 2f 62 61 72 2d 74 6f 6f 2d 6c 6f 77 // Median/bar-too-low
+// Median/bar-too-low
+7f 4d 65 64 69 61 6e 2f 62 61 72 2d 74 6f 6f 2d 6c 6f 77 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 90
 61 -> revert
 57
 50
 
+00
+
+# setBar
+5b
+60 04
+35
+60 04
+55
 00
 
 # revert
