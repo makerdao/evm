@@ -104,7 +104,7 @@ fd
 80
 60 02
 01
-60 05
+60 06
 02
 90
 
@@ -112,20 +112,47 @@ fd
 60 20                  // stack: [free, 0x20*bar+0x20, 0x20*i+0x20] <-
 # array-loop
 5b
-
-// get i_th element of val
 80
+
+// reserve memory space for hash
+83
+60 20
+01
+90
+
+// loop over args
 60 00
-51                     // pos_val
+# arg-loop
+5b
+81
+81
+51
 01
 51
 83
+82
+01
+80
+91
+90
 52
 
 // log (remove)
 60 20
-83
+90
 a0
+
+// iterate arg-loop
+60 20
+01
+80
+60 a0
+11
+61 -> arg-loop
+57
+50
+50
+50
 
 // iterate
 60 20
