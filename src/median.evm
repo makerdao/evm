@@ -38,11 +38,11 @@ f3
 60 e0
 1c
 80
-63 89 bb b8 b2          // poke(uint256[],uint256[],uint8[],bytes32[],bytes32[])
+63 89 bb b8 b2         // poke(uint256[],uint256[],uint8[],bytes32[],bytes32[])
 14
 61 -> poke
 57
-63 35 2d 3f ba          // setBar(uint256)
+63 35 2d 3f ba         // setBar(uint256)
 14
 61 -> setBar
 57
@@ -63,9 +63,17 @@ fd
 60 00
 37
 
-// ensure arrays have required length
-60 04                 // bar
+// obtain bar
+60 04                  // bar
 54
+
+// ensure bar is greater than zero
+80
+15
+61 -> bar-too-low
+57
+
+// ensure arrays have bar length
 60 00
 # bar-loop
 5b
@@ -75,7 +83,7 @@ fd
 51
 14
 15
-61 -> revert-bar-too-low
+61 -> bar-too-low
 57
 60 20
 01
@@ -85,7 +93,54 @@ fd
 61 -> bar-loop
 57
 50
+
+// multiply bar by 0x20 and add 0x20
+60 20
+02
+60 20
+01
+
+// get free memory position
+80
+60 02
+01
+60 05
+02
+90
+
+// loop over arrays
+60 20                  // stack: [free, 0x20*bar+0x20, 0x20*i+0x20] <-
+# array-loop
+5b
+
+// get i_th element of val
+80
+60 00
+51                     // pos_val
+01
+51
+83
+52
+
+// log (remove)
+60 20
+83
+a0
+
+// iterate
+60 20
+01
+81
+81
+14
+15
+61 -> array-loop
+57
+50
+50
+
 00
+
 
 
 # setBar
@@ -98,7 +153,7 @@ fd
 
 
 
-# revert-bar-too-low
+# bar-too-low
 5b
 7f 4d 65 64 69 61 6e 2f 62 61 72 2d 74 6f 6f 2d 6c 6f 77 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 60 00
