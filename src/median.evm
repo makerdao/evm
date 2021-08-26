@@ -112,18 +112,11 @@ fd
 60 20                  // stack: [free, 0x20*bar+0x20, 0x20*i+0x20] <-
 # array-loop
 5b
-80
-
-// reserve memory space for hash
-83
-60 20
-01
-90
 
 // loop over args
 60 00
 90
-60 00                  // stack: [free, bar, i, free + 20, gap, i, j]
+60 00                  // stack: [free, bar, gap, i, j]
 # arg-loop
 5b
 81
@@ -131,7 +124,7 @@ fd
 51
 01
 51
-84
+85
 82
 01
 84
@@ -160,12 +153,12 @@ fd
 61 -> arg-loop
 57
 50
-50
+90
 50
 
 // log (remove)
 61 01 20
-90
+83
 a0
 
 // iterate
