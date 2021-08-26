@@ -6,11 +6,10 @@
 // 0                     wards
 // 1                     val
 // 2                     age
-// 3                     wat
-// 4                     bar
-// keccak(address,5)     orcl
-// keccak(address,6)     bud
-// keccak(uint8,7)       slot
+// 3                     bar
+// keccak(address,4)     orcl
+// keccak(address,5)     bud
+// keccak(uint8,6)       slot
 //
 
 
@@ -64,7 +63,7 @@ fd
 37
 
 // obtain bar
-60 04                  // bar
+60 03                  // bar
 54
 
 // ensure bar is greater than zero
@@ -181,7 +180,7 @@ a0
 5b
 60 04
 35
-60 04
+60 03
 55
 00
 
