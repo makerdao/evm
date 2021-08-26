@@ -122,6 +122,8 @@ fd
 
 // loop over args
 60 00
+90
+60 00                  // stack: [free, bar, i, free + 20, gap, i, j]
 # arg-loop
 5b
 81
@@ -129,8 +131,10 @@ fd
 51
 01
 51
-83
+84
 82
+01
+84
 01
 80
 91
@@ -142,7 +146,20 @@ fd
 90
 a0
 
-// iterate arg-loop
+// set gap
+80
+60 20
+14
+15
+61 -> iterate-arg-loop
+57
+91
+60 80
+01
+91
+
+# iterate-arg-loop
+5b
 60 20
 01
 80
@@ -150,6 +167,7 @@ a0
 11
 61 -> arg-loop
 57
+50
 50
 50
 50
