@@ -182,6 +182,17 @@ fd
 01
 52
 
+// hash message header + data
+60 40
+83
+60 60
+01
+20
+83
+60 a0
+01
+52
+
 // log (remove)
 61 01 20
 83
