@@ -181,9 +181,9 @@ fd
 52
 
 // hash message header + data
-60 40
+60 3c
 83
-60 60
+60 64
 01
 20
 83
