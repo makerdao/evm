@@ -53,6 +53,7 @@ fd
 
 # poke
 5b
+50
 
 // copy calldata to memory
 60 04
