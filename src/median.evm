@@ -100,11 +100,9 @@ fd
 01
 
 // get free memory position
-80
-60 02
-01
-60 06
-02
+60 04
+36
+03
 
 // add wat to memory
 80
