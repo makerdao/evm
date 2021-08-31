@@ -125,14 +125,14 @@ fd
 90
 
 // loop over arrays
-60 20                  // stack: [free, 0x20*bar+0x20, 0x20*i+0x20] <-
+60 20                  // [free, BAR, 20I]<
 # array-loop
 5b
 
 // loop over args
 60 00
 90
-60 00                  // stack: [free, bar, gap, i, j]
+60 00                  // [free, BAR, gap, 20I, J]<
 # arg-loop
 5b
 81
