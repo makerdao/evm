@@ -19,6 +19,8 @@ do
     value="${values[i]}"
     date="${dates[i]}"
 
+    from=$(echo $ETH_ACCOUNTS | tr ' ' '\n' | head -n $((i+1)) | tail -n 1)
+
     val=$(seth --to-uint256 $value)
     age=$(echo $date | seth --to-uint256)
     wat=$(seth --from-ascii $name | seth --to-bytes32)
@@ -26,7 +28,7 @@ do
 
     hash=$(seth keccak $data)
 
-    signature=$(ethsign msg --data $hash --passphrase-file $ETH_PASSWORD)
+    signature=$(ethsign msg --data $hash --passphrase-file $ETH_PASSWORD --from $from)
     r=${signature:0:66}
     s="0x${signature:66:64}"
     vbin=${signature:130:2}
