@@ -127,17 +127,22 @@ fd
 90
 52
 
+90                     // [free, BAR]
+
+// add 'last' to stack
+60 00
+91
 90
 
 // loop over arrays
-60 20                  // [free, BAR, 20I]<
+60 20                  // [last, free, BAR, I+20]<
 # array-loop
 5b
 
 // loop over args
 60 00
 90
-60 00                  // [free, BAR, gap, 20I, J]<
+60 00                  // [last, free, BAR, gap, I+20, J]<
 # arg-loop
 5b
 81
@@ -242,6 +247,17 @@ fa
 61 -> stale-message
 57
 
+// ensure messages are in order
+82
+51
+80
+85
+11
+61 -> not-in-order
+57
+93
+50
+
 // iterate
 60 20
 01
@@ -341,6 +357,17 @@ fd
 # stale-message
 5b
 7f 4d 65 64 69 61 6e 2f 73 74 61 6c 65 2d 6d 65 73 73 61 67 65 00 00 00 00 00 00 00 00 00 00 00 00
+60 00
+52
+60 20
+60 00
+fd
+
+
+
+# not-in-order
+5b
+7f 4d 65 64 69 61 6e 2f 6d 65 73 73 61 67 65 73 2d 6e 6f 74 2d 69 6e 2d 6f 72 64 65 72 00 00 00 00
 60 00
 52
 60 20

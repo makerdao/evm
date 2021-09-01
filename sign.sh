@@ -1,20 +1,49 @@
 #! /usr/bin/env bash
 
-value=3425
-date=1630084111
-name=ethusd
+values_string=${1:-[3425,3488]}
+dates_string=${2:-[1630084111,1630085739]}
+name=${3:-ethusd}
 
-val=$(seth --to-uint256 $value)
-age=$(echo $date | seth --to-uint256)
-wat=$(seth --from-ascii $name | seth --to-bytes32)
-data="$val${age/0x/}${wat/0x/}"
+no_brackets=${values_string:1:-1}
+values=(${no_brackets//,/ })
 
-hash=$(seth keccak $data)
+no_brackets=${dates_string:1:-1}
+dates=(${no_brackets//,/ })
 
-signature=$(ethsign msg --data $hash --passphrase-file $ETH_PASSWORD)
-r=${signature:0:66}
-s="0x${signature:66:64}"
-vbin=${signature:130:2}
-v=$(seth --to-dec "0x${vbin}")
+vs="["
+rs="["
+ss="["
 
-echo "[$value] [$date] [$v] [$r] [$s]"
+for i in "${!values[@]}"
+do
+    value="${values[i]}"
+    date="${dates[i]}"
+
+    val=$(seth --to-uint256 $value)
+    age=$(echo $date | seth --to-uint256)
+    wat=$(seth --from-ascii $name | seth --to-bytes32)
+    data="$val${age/0x/}${wat/0x/}"
+
+    hash=$(seth keccak $data)
+
+    signature=$(ethsign msg --data $hash --passphrase-file $ETH_PASSWORD)
+    r=${signature:0:66}
+    s="0x${signature:66:64}"
+    vbin=${signature:130:2}
+    v=$(seth --to-dec "0x${vbin}")
+
+    vs+="${v},"
+    rs+="${r},"
+    ss+="${s},"
+
+done
+
+vs=${vs::-1}
+rs=${rs::-1}
+ss=${ss::-1}
+
+vs+="]"
+rs+="]"
+ss+="]"
+
+echo "${values_string} ${dates_string} ${vs} ${rs} ${ss}"
