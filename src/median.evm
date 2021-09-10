@@ -297,9 +297,27 @@ fa
 15
 61 -> array-loop
 57
-50
-50
-50
+50                      // [bloom, last, free, BAR]<
+50                      // [bloom, last, free]<
+50                      // [bloom, last]<
+50                      // [bloom]<
+50                      // []<
+
+// set val
+60 00
+51
+80
+51
+60 01
+1c
+60 20
+02
+60 20
+01
+01
+51
+60 01
+55
 
 // set age
 42
